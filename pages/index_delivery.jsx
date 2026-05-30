@@ -99,13 +99,13 @@ const css = `
 
   /* ── Header logo ── */
   .hdr {
-    padding: 32px 0 24px;
+    padding: 28px 0 20px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .logo {
-    height: 48px;
+    height: 72px;
     width: auto;
     object-fit: contain;
   }
@@ -117,40 +117,39 @@ const css = `
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-top: 8px;
+    padding-top: 4px;
   }
   .cover-tag {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   .cover-h1 {
-    font-size: clamp(24px, 6vw, 34px);
+    font-size: clamp(30px, 8vw, 44px);
     font-weight: 900;
-    line-height: 1.2;
+    line-height: 1.15;
     color: #111;
     margin-bottom: 28px;
   }
-  .cover-h1 em { font-style: normal; color: #111; }
-  .cover-h1 strong { color: #111; }
+  .cover-h1 em { font-style: normal; }
   .bullets {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
     margin-bottom: 24px;
     text-align: left;
     width: 100%;
   }
   .bullets li {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     color: #333;
     line-height: 1.5;
   }
   .aviso {
-    font-size: 13px;
+    font-size: 15px;
     color: #555;
     line-height: 1.6;
     font-style: italic;
@@ -165,13 +164,13 @@ const css = `
     background: #4CAF50;
     color: #fff;
     font-family: inherit;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 800;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     border: none;
     border-radius: 6px;
-    padding: 18px 24px;
+    padding: 22px 24px;
     cursor: pointer;
     margin-top: auto;
     transition: opacity 0.15s, transform 0.1s;
