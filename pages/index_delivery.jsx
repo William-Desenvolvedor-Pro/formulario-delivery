@@ -3,8 +3,8 @@ import Head from 'next/head'
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 const CONFIG = {
-  n8nWebhookUrl: 'https://nnwb.williamdiscipline.com.br/webhook/prummo-form',
-  linkCalendly:  'https://calendly.com/orlandodiscipline/30min',
+  n8nWebhookUrl: 'SUA_URL_DO_N8N_AQUI',
+  linkCalendly:  'SEU_LINK_DO_CALENDLY_AQUI',
 }
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
@@ -78,33 +78,34 @@ const css = `
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    max-width: 600px;
+    max-width: 560px;
     margin: 0 auto;
-    padding: 0 20px 32px;
+    padding: 0 24px 40px;
   }
 
   /* ── Progress bar ── */
   .prog-bar {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 3px;
+    height: 4px;
     background: #ececec;
     z-index: 100;
   }
   .prog-fill {
     height: 100%;
-    background: #7cc76d;
+    background: #4CAF50;
     transition: width 0.5s ease;
   }
 
   /* ── Header logo ── */
   .hdr {
-    padding: 28px 0 20px;
+    padding: 32px 0 24px;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   .logo {
-    height: 36px;
+    height: 48px;
     width: auto;
     object-fit: contain;
   }
@@ -114,62 +115,63 @@ const css = `
     flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     padding-top: 8px;
   }
   .cover-tag {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
-    color: #7cc76d;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
+    color: #333;
+    margin-bottom: 10px;
   }
   .cover-h1 {
-    font-size: clamp(26px, 6vw, 38px);
+    font-size: clamp(24px, 6vw, 34px);
     font-weight: 900;
-    line-height: 1.15;
+    line-height: 1.2;
     color: #111;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
-  .cover-h1 em { font-style: normal; color: #7cc76d; }
+  .cover-h1 em { font-style: normal; color: #111; }
+  .cover-h1 strong { color: #111; }
   .bullets {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 24px;
+    text-align: left;
+    width: 100%;
   }
   .bullets li {
     font-size: 15px;
     font-weight: 500;
     color: #333;
-    line-height: 1.4;
+    line-height: 1.5;
   }
   .aviso {
     font-size: 13px;
-    color: #666;
-    line-height: 1.5;
-    border-left: 3px solid #f0c040;
-    padding: 10px 12px;
-    background: #fffbea;
-    border-radius: 4px;
-    margin-bottom: 28px;
+    color: #555;
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 32px;
+    text-align: center;
   }
   .cta-cover {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    background: #7cc76d;
+    background: #4CAF50;
     color: #fff;
     font-family: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     border: none;
-    border-radius: 4px;
-    padding: 16px 24px;
+    border-radius: 6px;
+    padding: 18px 24px;
     cursor: pointer;
     margin-top: auto;
     transition: opacity 0.15s, transform 0.1s;
@@ -180,21 +182,21 @@ const css = `
   /* ── Question steps ── */
   .q-body {
     flex: 1;
-    padding-top: 12px;
+    padding-top: 16px;
   }
   .q-num {
     font-size: 12px;
     font-weight: 600;
     color: #aaa;
     letter-spacing: 0.05em;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
   .q-title {
-    font-size: clamp(18px, 5vw, 24px);
+    font-size: clamp(18px, 5vw, 23px);
     font-weight: 700;
-    line-height: 1.3;
+    line-height: 1.35;
     color: #111;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
   }
   .q-title strong { color: #111; }
   .q-req { color: #e55; margin-left: 2px; }
@@ -206,15 +208,15 @@ const css = `
     border-bottom: 1.5px solid #cccccc;
     outline: none;
     font-family: inherit;
-    font-size: 17px;
+    font-size: 18px;
     color: #111;
-    padding: 8px 0;
+    padding: 10px 0;
     background: transparent;
     transition: border-color 0.2s;
     margin-bottom: 6px;
   }
   .inp-line::placeholder { color: #bbb; }
-  .inp-line:focus { border-bottom-color: #7cc76d; }
+  .inp-line:focus { border-bottom-color: #4CAF50; }
   .inp-line.error { border-bottom-color: #e55; }
 
   /* ── WhatsApp row ── */
@@ -223,18 +225,18 @@ const css = `
     align-items: center;
     gap: 8px;
     border-bottom: 1.5px solid #cccccc;
-    padding-bottom: 6px;
+    padding-bottom: 8px;
     margin-bottom: 6px;
     transition: border-color 0.2s;
   }
-  .zap-row:focus-within { border-bottom-color: #7cc76d; }
+  .zap-row:focus-within { border-bottom-color: #4CAF50; }
   .zap-row.error { border-bottom-color: #e55; }
   .zap-row input {
     flex: 1;
     border: none;
     outline: none;
     font-family: inherit;
-    font-size: 17px;
+    font-size: 18px;
     color: #111;
     background: transparent;
   }
@@ -259,66 +261,67 @@ const css = `
   .opt {
     display: flex;
     align-items: center;
-    gap: 12px;
-    border: 1.5px solid #d8d8d8;
+    gap: 14px;
+    border: 1.5px solid #e0e0e0;
     border-radius: 6px;
-    padding: 12px 14px;
+    padding: 13px 16px;
     cursor: pointer;
     background: #fff;
     transition: border-color 0.15s, background 0.15s;
     user-select: none;
   }
-  .opt:hover { border-color: #b0dba9; background: #f7fdf6; }
-  .opt.sel { border-color: #7cc76d; background: #f0faee; }
+  .opt:hover { border-color: #4CAF50; background: #f6fdf6; }
+  .opt.sel { border-color: #4CAF50; background: #f0faf0; }
   .opt-letter {
-    min-width: 28px;
-    height: 28px;
+    min-width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #efefef;
+    background: #f0f0f0;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     color: #555;
     transition: background 0.15s, color 0.15s;
     flex-shrink: 0;
   }
-  .opt.sel .opt-letter { background: #7cc76d; color: #fff; }
+  .opt.sel .opt-letter { background: #4CAF50; color: #fff; }
   .opt-text { font-size: 14px; font-weight: 500; color: #222; line-height: 1.4; }
 
   /* ── Continue button ── */
   .cont-wrap {
-    padding-top: 24px;
+    padding-top: 28px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
   }
   .cont-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    background: #7cc76d;
+    background: #4CAF50;
     color: #fff;
     font-family: inherit;
     font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     border: none;
-    border-radius: 4px;
-    padding: 14px 22px;
+    border-radius: 6px;
+    padding: 15px 28px;
     cursor: pointer;
     transition: opacity 0.15s, transform 0.1s;
   }
-  .cont-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+  .cont-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
   .cont-btn:not(:disabled):hover { opacity: 0.92; transform: translateY(-1px); }
   .cont-btn:not(:disabled):active { transform: translateY(0); }
 
   .enter-hint {
     font-size: 12px;
-    color: #bbb;
+    color: #ccc;
   }
   .enter-hint kbd {
     font-family: inherit;
@@ -327,6 +330,7 @@ const css = `
     border-radius: 3px;
     padding: 1px 5px;
     font-size: 11px;
+    color: #888;
   }
 
   /* ── Sucesso ── */
@@ -339,7 +343,7 @@ const css = `
     text-align: center;
     padding: 16px 0;
   }
-  .sucesso-icon { font-size: 56px; margin-bottom: 18px; }
+  .sucesso-icon { font-size: 60px; margin-bottom: 20px; }
   .sucesso-h1 {
     font-size: clamp(22px, 5.5vw, 30px);
     font-weight: 900;
@@ -350,23 +354,25 @@ const css = `
   .sucesso-p {
     font-size: 15px;
     color: #555;
-    line-height: 1.6;
-    margin-bottom: 32px;
+    line-height: 1.7;
+    margin-bottom: 36px;
     max-width: 460px;
   }
   .calendly-btn {
-    display: inline-flex;
+    width: 100%;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    background: #7cc76d;
+    background: #4CAF50;
     color: #fff;
     font-family: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 18px 28px;
     cursor: pointer;
     text-decoration: none;
