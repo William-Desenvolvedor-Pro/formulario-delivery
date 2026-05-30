@@ -105,7 +105,7 @@ const css = `
     justify-content: center;
   }
   .logo {
-    height: 80px;
+    height: 100px;
     width: auto;
     object-fit: contain;
   }
@@ -320,14 +320,34 @@ const css = `
     padding-top: 24px;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 12px;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
   }
-  .cont-btn {
+  .back-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    background: #4CAF50;
+    color: #fff;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    padding: 0 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    min-width: 52px;
+    transition: opacity 0.15s;
+  }
+  .back-btn:hover { opacity: 0.85; }
+
+  .cont-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #4CAF50;
     color: #fff;
     font-family: inherit;
@@ -337,31 +357,14 @@ const css = `
     text-transform: uppercase;
     border: none;
     border-radius: 6px;
-    padding: 18px 36px;
+    padding: 18px 24px;
     cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
+    opacity: 0.6;
+    transition: opacity 0.15s;
   }
-  .cont-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
-  .cont-btn:not(:disabled):hover { opacity: 0.92; transform: translateY(-1px); }
-  .cont-btn:not(:disabled):active { transform: translateY(0); }
-
-  .back-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    background: transparent;
-    color: #999;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-    border: 1.5px solid #ddd;
-    border-radius: 6px;
-    padding: 18px 18px;
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
-  }
-  .back-btn:hover { color: #555; border-color: #bbb; }
+  .cont-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .cont-btn:not(:disabled) { opacity: 1; }
+  .cont-btn:not(:disabled):hover { opacity: 0.88; }
 
   .enter-hint {
     font-size: 12px;
@@ -526,7 +529,7 @@ function StepNome({ onNext, onBack }) {
         <div className="err-msg">{showError ? 'Digite seu nome e sobrenome (apenas letras)' : ''}</div>
       </div>
       <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>← Voltar</button>
+        <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(val.trim())}>
           OK ✓
         </button>
@@ -575,7 +578,7 @@ function StepZap({ nome, onNext, onBack }) {
         <div className="err-msg">{showError ? 'Digite um número válido com DDD' : ''}</div>
       </div>
       <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>← Voltar</button>
+        <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(val)}>
           OK ✓
         </button>
@@ -614,7 +617,7 @@ function StepInsta({ onNext, onBack }) {
         <div className="err-msg">{showError ? 'Preencha o @ do Instagram' : ''}</div>
       </div>
       <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>← Voltar</button>
+        <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(clean)}>
           OK ✓
         </button>
@@ -657,7 +660,7 @@ function StepPerdaIfood({ onNext, onBack }) {
         </div>
       </div>
       <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>← Voltar</button>
+        <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
           OK ✓
         </button>
@@ -698,7 +701,7 @@ function StepFaturamento({ onNext, onBack }) {
         </div>
       </div>
       <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>← Voltar</button>
+        <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
           OK ✓
         </button>
@@ -737,7 +740,7 @@ function StepInvestimento({ onNext, onBack }) {
         </div>
       </div>
       <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>← Voltar</button>
+        <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
           OK ✓
         </button>
@@ -776,7 +779,7 @@ function StepDecisores({ onNext, onBack }) {
         </div>
       </div>
       <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>← Voltar</button>
+        <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
           ENVIAR ✓
         </button>
