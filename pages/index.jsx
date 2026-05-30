@@ -99,13 +99,13 @@ const css = `
 
   /* ── Header logo ── */
   .hdr {
-    padding: 32px 0 28px;
+    padding: 28px 0 20px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .logo {
-    height: 68px;
+    height: 56px;
     width: auto;
     object-fit: contain;
   }
@@ -118,71 +118,67 @@ const css = `
     align-items: center;
     text-align: center;
     padding-top: 0;
-    gap: 0;
   }
 
-  /* Emoji hamburguer grande */
+  /* Emoji hamburguer — grande, isolado */
   .cover-emoji {
-    font-size: 52px;
+    font-size: 56px;
     line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  /* "Dono de delivery," — leve, regular */
+  .cover-tag {
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
     margin-bottom: 8px;
   }
 
-  /* "Dono de delivery," — suave, sem negrito */
-  .cover-tag {
-    font-size: 22px;
-    font-weight: 400;
-    color: #222;
-    margin-bottom: 6px;
-  }
-
-  /* Headline principal — super negrito */
+  /* Headline — enorme, black */
   .cover-h1 {
-    font-size: clamp(26px, 6.5vw, 36px);
+    font-size: clamp(32px, 8vw, 48px);
     font-weight: 900;
-    line-height: 1.18;
+    line-height: 1.12;
     color: #111;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
   }
 
-  /* Bullets — alinhados à esquerda, espaçados */
+  /* Bullets — alinhados à esquerda, bastante espaço entre eles */
   .bullets {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    margin-bottom: 28px;
+    gap: 20px;
+    margin-bottom: 32px;
     text-align: left;
     width: 100%;
-    padding: 0 4px;
   }
   .bullets li {
     font-size: 17px;
     font-weight: 500;
     color: #222;
-    line-height: 1.5;
+    line-height: 1.4;
     display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
   }
   .bullet-emoji {
-    font-size: 18px;
+    font-size: 20px;
     flex-shrink: 0;
-    margin-top: 1px;
   }
 
-  /* Aviso — tamanho legível */
+  /* Aviso — itálico, centralizado, tamanho legível */
   .aviso {
-    font-size: 14px;
-    color: #555;
+    font-size: 13px;
+    color: #666;
     line-height: 1.65;
     font-style: italic;
     margin-bottom: 36px;
     text-align: center;
-    padding: 0 4px;
   }
 
-  /* Botão CTA — largura total mas altura proporcionada */
+  /* Botão CTA */
   .cta-cover {
     width: 100%;
     display: flex;
@@ -193,11 +189,11 @@ const css = `
     font-family: inherit;
     font-size: 15px;
     font-weight: 800;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     border: none;
     border-radius: 6px;
-    padding: 15px 24px;
+    padding: 16px 24px;
     cursor: pointer;
     margin-top: auto;
     transition: opacity 0.15s, transform 0.1s;
