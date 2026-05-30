@@ -105,7 +105,7 @@ const css = `
     justify-content: center;
   }
   .logo {
-    height: 56px;
+    height: 80px;
     width: auto;
     object-fit: contain;
   }
@@ -204,7 +204,11 @@ const css = `
   /* ── Question steps ── */
   .q-body {
     flex: 1;
-    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
   .q-num {
     font-size: 12px;
@@ -214,7 +218,7 @@ const css = `
     margin-bottom: 16px;
   }
   .q-title {
-    font-size: clamp(18px, 5vw, 23px);
+    font-size: clamp(20px, 5vw, 26px);
     font-weight: 700;
     line-height: 1.35;
     color: #111;
@@ -313,11 +317,11 @@ const css = `
 
   /* ── Continue button ── */
   .cont-wrap {
-    padding-top: 28px;
+    padding-top: 24px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
   }
   .cont-btn {
     display: flex;
@@ -327,13 +331,13 @@ const css = `
     background: #4CAF50;
     color: #fff;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     border: none;
     border-radius: 6px;
-    padding: 15px 28px;
+    padding: 18px 36px;
     cursor: pointer;
     transition: opacity 0.15s, transform 0.1s;
   }
@@ -341,9 +345,28 @@ const css = `
   .cont-btn:not(:disabled):hover { opacity: 0.92; transform: translateY(-1px); }
   .cont-btn:not(:disabled):active { transform: translateY(0); }
 
+  .back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: transparent;
+    color: #999;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    padding: 18px 18px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .back-btn:hover { color: #555; border-color: #bbb; }
+
   .enter-hint {
     font-size: 12px;
     color: #ccc;
+    margin-top: 8px;
   }
   .enter-hint kbd {
     font-family: inherit;
@@ -474,7 +497,7 @@ function Capa({ onNext }) {
 }
 
 // ── Etapa 01 — Nome ───────────────────────────────────────────────────────────
-function StepNome({ onNext }) {
+function StepNome({ onNext, onBack }) {
   const [val, setVal] = useState('')
   const ref = useRef(null)
   useEffect(() => { ref.current?.focus() }, [])
@@ -503,17 +526,18 @@ function StepNome({ onNext }) {
         <div className="err-msg">{showError ? 'Digite seu nome e sobrenome (apenas letras)' : ''}</div>
       </div>
       <div className="cont-wrap">
+        <button className="back-btn" onClick={onBack}>← Voltar</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(val.trim())}>
-          OK
+          OK ✓
         </button>
-        <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
       </div>
+      <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
     </div>
   )
 }
 
 // ── Etapa 02 — WhatsApp ───────────────────────────────────────────────────────
-function StepZap({ nome, onNext }) {
+function StepZap({ nome, onNext, onBack }) {
   const [val, setVal] = useState('')
   const ref = useRef(null)
   useEffect(() => { ref.current?.focus() }, [])
@@ -551,17 +575,18 @@ function StepZap({ nome, onNext }) {
         <div className="err-msg">{showError ? 'Digite um número válido com DDD' : ''}</div>
       </div>
       <div className="cont-wrap">
+        <button className="back-btn" onClick={onBack}>← Voltar</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(val)}>
-          OK
+          OK ✓
         </button>
-        <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
       </div>
+      <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
     </div>
   )
 }
 
 // ── Etapa 03 — Instagram ──────────────────────────────────────────────────────
-function StepInsta({ onNext }) {
+function StepInsta({ onNext, onBack }) {
   const [val, setVal] = useState('')
   const ref = useRef(null)
   useEffect(() => { ref.current?.focus() }, [])
@@ -589,11 +614,12 @@ function StepInsta({ onNext }) {
         <div className="err-msg">{showError ? 'Preencha o @ do Instagram' : ''}</div>
       </div>
       <div className="cont-wrap">
+        <button className="back-btn" onClick={onBack}>← Voltar</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(clean)}>
-          OK
+          OK ✓
         </button>
-        <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
       </div>
+      <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
     </div>
   )
 }
@@ -607,7 +633,7 @@ const PERDA_IFOOD_OPTS = [
   { label: 'Perco mais de R$5.000 por semana' },
 ]
 
-function StepPerdaIfood({ onNext }) {
+function StepPerdaIfood({ onNext, onBack }) {
   const [sel, setSel] = useState(null)
   function choose(opt) { setSel(opt); track('option_selected', { question: 'perda_ifood', label: opt.label }) }
   return (
@@ -631,8 +657,9 @@ function StepPerdaIfood({ onNext }) {
         </div>
       </div>
       <div className="cont-wrap">
+        <button className="back-btn" onClick={onBack}>← Voltar</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
-          OK
+          OK ✓
         </button>
       </div>
     </div>
@@ -647,7 +674,7 @@ const FAT_OPTS = [
   { label: 'Acima de R$150.000' },
 ]
 
-function StepFaturamento({ onNext }) {
+function StepFaturamento({ onNext, onBack }) {
   const [sel, setSel] = useState(null)
   function choose(opt) { setSel(opt); track('option_selected', { question: 'faturamento', label: opt.label }) }
   return (
@@ -671,8 +698,9 @@ function StepFaturamento({ onNext }) {
         </div>
       </div>
       <div className="cont-wrap">
+        <button className="back-btn" onClick={onBack}>← Voltar</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
-          OK
+          OK ✓
         </button>
       </div>
     </div>
@@ -685,7 +713,7 @@ const INV_OPTS = [
   { v: 'nok', label: '❌ Não quero investir no meu negócio' },
 ]
 
-function StepInvestimento({ onNext }) {
+function StepInvestimento({ onNext, onBack }) {
   const [sel, setSel] = useState(null)
   function choose(opt) { setSel(opt); track('option_selected', { question: 'investimento', value: opt.v, label: opt.label }) }
   return (
@@ -709,8 +737,9 @@ function StepInvestimento({ onNext }) {
         </div>
       </div>
       <div className="cont-wrap">
+        <button className="back-btn" onClick={onBack}>← Voltar</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
-          OK
+          OK ✓
         </button>
       </div>
     </div>
@@ -723,7 +752,7 @@ const DECISAO_OPTS = [
   { label: 'Não, só eu tomo as decisões e me comprometo a participar no horário combinado.' },
 ]
 
-function StepDecisores({ onNext }) {
+function StepDecisores({ onNext, onBack }) {
   const [sel, setSel] = useState(null)
   function choose(opt) { setSel(opt); track('option_selected', { question: 'decisores', label: opt.label }) }
   return (
@@ -747,8 +776,9 @@ function StepDecisores({ onNext }) {
         </div>
       </div>
       <div className="cont-wrap">
+        <button className="back-btn" onClick={onBack}>← Voltar</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
-          ENVIAR
+          ENVIAR ✓
         </button>
       </div>
     </div>
@@ -944,13 +974,13 @@ export default function FormularioDelivery() {
         <Header />
 
         {step === 'capa'    && <Capa onNext={handleCapa} />}
-        {step === 'q1'      && <StepNome onNext={handleNome} />}
-        {step === 'q2'      && <StepZap nome={formState.nome} onNext={handleZap} />}
-        {step === 'q3'      && <StepInsta onNext={handleInsta} />}
-        {step === 'q4'      && <StepPerdaIfood onNext={handlePerdaIfood} />}
-        {step === 'q5'      && <StepFaturamento onNext={handleFaturamento} />}
-        {step === 'q6'      && <StepInvestimento onNext={handleInvestimento} />}
-        {step === 'q7'      && <StepDecisores onNext={handleDecisores} />}
+        {step === 'q1'      && <StepNome onNext={handleNome} onBack={() => goTo('capa')} />}
+        {step === 'q2'      && <StepZap nome={formState.nome} onNext={handleZap} onBack={() => goTo('q1')} />}
+        {step === 'q3'      && <StepInsta onNext={handleInsta} onBack={() => goTo('q2')} />}
+        {step === 'q4'      && <StepPerdaIfood onNext={handlePerdaIfood} onBack={() => goTo('q3')} />}
+        {step === 'q5'      && <StepFaturamento onNext={handleFaturamento} onBack={() => goTo('q4')} />}
+        {step === 'q6'      && <StepInvestimento onNext={handleInvestimento} onBack={() => goTo('q5')} />}
+        {step === 'q7'      && <StepDecisores onNext={handleDecisores} onBack={() => goTo('q6')} />}
         {step === 'sucesso' && <TelaSucesso onAgendar={handleAgendar} />}
         {step === 'monok'   && <TelaMonok nome={formState.nome} />}
       </div>
