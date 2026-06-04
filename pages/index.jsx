@@ -5,6 +5,7 @@ import Head from 'next/head'
 const CONFIG = {
   n8nWebhookUrl: 'SUA_URL_DO_N8N_AQUI',
   linkCalendly:  'SEU_LINK_DO_CALENDLY_AQUI',
+  linkInstagram: 'https://www.instagram.com/orlandodiscipline/',
 }
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
@@ -55,13 +56,10 @@ function sendWebhook(payload) {
   }).catch(() => {})
 }
 
-// ─── PROGRESS MAP ─────────────────────────────────────────────────────────────
-const PROG = {
-  capa: 0, q1: 14, q2: 28, q3: 42, q4: 56, q5: 70, q6: 84, q7: 100,
-  sucesso: 100, monok: 100,
-}
+// ─── PROGRESS ────────────────────────────────────────────────────────────────
+const PROG = { q1: 0, q2: 20, q3: 40, q4: 60, q5: 80, sucesso: 100, monok: 100 }
 
-// ─── STYLES (inline — single-file component) ──────────────────────────────────
+// ─── STYLES ──────────────────────────────────────────────────────────────────
 const css = `
   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
@@ -97,118 +95,18 @@ const css = `
     transition: width 0.5s ease;
   }
 
-  /* ── Header logo ── */
-  .hdr {
-    padding: 28px 0 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .logo {
-    height: 100px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  /* ── CAPA ── */
-  .cover {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding-top: 0;
-  }
-
-  /* Emoji hamburguer — grande, isolado */
-  .cover-emoji {
-    font-size: 56px;
-    line-height: 1;
-    margin-bottom: 12px;
-  }
-
-  /* "Dono de delivery," — leve, regular */
-  .cover-tag {
-    font-size: 18px;
-    font-weight: 400;
-    color: #333;
-    margin-bottom: 8px;
-  }
-
-  /* Headline — enorme, black */
-  .cover-h1 {
-    font-size: clamp(32px, 8vw, 48px);
-    font-weight: 900;
-    line-height: 1.12;
-    color: #111;
-    margin-bottom: 36px;
-  }
-
-  /* Bullets — alinhados à esquerda, bastante espaço entre eles */
-  .bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-bottom: 32px;
-    text-align: left;
-    width: 100%;
-  }
-  .bullets li {
-    font-size: 17px;
-    font-weight: 500;
-    color: #222;
-    line-height: 1.4;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .bullet-emoji {
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  /* Aviso — itálico, centralizado, tamanho legível */
-  .aviso {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.65;
-    font-style: italic;
-    margin-bottom: 36px;
-    text-align: center;
-  }
-
-  /* Botão CTA */
-  .cta-cover {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #4CAF50;
-    color: #fff;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 6px;
-    padding: 16px 24px;
-    cursor: pointer;
-    margin-top: auto;
-    transition: opacity 0.15s, transform 0.1s;
-  }
-  .cta-cover:hover { opacity: 0.92; transform: translateY(-1px); }
-  .cta-cover:active { transform: translateY(0); }
+  /* ── Top spacer (sem logo) ── */
+  .hdr { padding: 48px 0 0; }
 
   /* ── Question steps ── */
+  .step-wrap { flex: 1; display: flex; flex-direction: column; }
+
   .q-body {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding: 16px 0;
   }
   .q-num {
     font-size: 12px;
@@ -224,7 +122,6 @@ const css = `
     color: #111;
     margin-bottom: 32px;
   }
-  .q-title strong { color: #111; }
   .q-req { color: #e55; margin-left: 2px; }
 
   /* ── Text inputs ── */
@@ -282,7 +179,7 @@ const css = `
     margin-top: 4px;
   }
 
-  /* ── Options (multiple choice) ── */
+  /* ── Options ── */
   .opts { display: flex; flex-direction: column; gap: 10px; }
   .opt {
     display: flex;
@@ -309,13 +206,13 @@ const css = `
     font-size: 13px;
     font-weight: 700;
     color: #555;
-    transition: background 0.15s, color 0.15s;
     flex-shrink: 0;
+    transition: background 0.15s, color 0.15s;
   }
   .opt.sel .opt-letter { background: #4CAF50; color: #fff; }
   .opt-text { font-size: 14px; font-weight: 500; color: #222; line-height: 1.4; }
 
-  /* ── Continue button ── */
+  /* ── Buttons ── */
   .cont-wrap {
     padding-top: 24px;
     display: flex;
@@ -331,11 +228,11 @@ const css = `
     background: #4CAF50;
     color: #fff;
     font-family: inherit;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
     border: none;
     border-radius: 6px;
-    padding: 0 16px;
+    padding: 0 18px;
     cursor: pointer;
     flex-shrink: 0;
     min-width: 52px;
@@ -359,11 +256,9 @@ const css = `
     border-radius: 6px;
     padding: 18px 24px;
     cursor: pointer;
-    opacity: 0.6;
     transition: opacity 0.15s;
   }
   .cont-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .cont-btn:not(:disabled) { opacity: 1; }
   .cont-btn:not(:disabled):hover { opacity: 0.88; }
 
   .enter-hint {
@@ -389,11 +284,11 @@ const css = `
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 16px 0;
+    padding: 24px 0;
   }
-  .sucesso-icon { font-size: 60px; margin-bottom: 20px; }
+  .sucesso-icon { font-size: 56px; margin-bottom: 20px; }
   .sucesso-h1 {
-    font-size: clamp(22px, 5.5vw, 30px);
+    font-size: clamp(22px, 5.5vw, 28px);
     font-weight: 900;
     color: #111;
     margin-bottom: 16px;
@@ -424,11 +319,11 @@ const css = `
     padding: 18px 28px;
     cursor: pointer;
     text-decoration: none;
-    transition: opacity 0.15s, transform 0.1s;
+    transition: opacity 0.15s;
   }
-  .calendly-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+  .calendly-btn:hover { opacity: 0.9; }
 
-  /* ── Monok (desqualificado) ── */
+  /* ── Monok ── */
   .monok {
     flex: 1;
     display: flex;
@@ -436,71 +331,55 @@ const css = `
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 16px 0;
+    padding: 24px 0;
   }
   .monok-icon { font-size: 48px; margin-bottom: 16px; }
-  .monok-h2 { font-size: 22px; font-weight: 800; color: #111; margin-bottom: 14px; }
-  .monok-p { font-size: 15px; color: #666; line-height: 1.6; max-width: 400px; }
-
-  /* ── Step wrapper ── */
-  .step-wrap { flex: 1; display: flex; flex-direction: column; }
+  .monok-h2 {
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: 900;
+    color: #111;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .monok-p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 440px;
+  }
+  .insta-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #4CAF50;
+    color: #fff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    padding: 16px 24px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .insta-btn:hover { opacity: 0.9; }
 
   /* ── Animations ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .step-wrap, .cover, .sucesso, .monok {
-    animation: fadeUp 0.3s ease both;
-  }
+  .step-wrap, .sucesso, .monok { animation: fadeUp 0.3s ease both; }
 `
 
-// ─── SUB-COMPONENTS ───────────────────────────────────────────────────────────
-
-function ProgressBar({ pct }) {
-  return (
-    <div className="prog-bar">
-      <div className="prog-fill" style={{ width: `${pct}%` }} />
-    </div>
-  )
-}
-
-function Header() {
-  return (
-    <div className="hdr">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/logo.png" alt="Logo" className="logo" />
-    </div>
-  )
-}
-
-// ── Capa ──────────────────────────────────────────────────────────────────────
-function Capa({ onNext }) {
-  return (
-    <div className="cover">
-      <div className="cover-emoji">🍔</div>
-      <div className="cover-tag">Dono de delivery,</div>
-      <h1 className="cover-h1">
-        aumente seus pedidos em 50% todos os dias com o tráfego pago
-      </h1>
-      <ul className="bullets">
-        <li><span className="bullet-emoji">🚫</span><span>Chega de pagar comissão para o iFood</span></li>
-        <li><span className="bullet-emoji">🏍️</span><span>Venda mais no seu próprio cardápio</span></li>
-        <li><span className="bullet-emoji">📱</span><span>Mais Pedidos até em dias fracos</span></li>
-        <li><span className="bullet-emoji">✅</span><span>+ de 70 deliveries faturando conosco</span></li>
-      </ul>
-      <p className="aviso">
-        ⚠️ Exclusivo para donos de delivery que estão dispostos a investir no mínimo R$ 1.500/mês em anúncios para deixar de ser sócio do iFood.
-      </p>
-      <button className="cta-cover" onClick={onNext}>
-        QUERO AUMENTAR MEUS PEDIDOS →
-      </button>
-    </div>
-  )
-}
-
-// ── Etapa 01 — Nome ───────────────────────────────────────────────────────────
-function StepNome({ onNext, onBack }) {
+// ─── STEP 01 — Nome ───────────────────────────────────────────────────────────
+function StepNome({ onNext }) {
   const [val, setVal] = useState('')
   const ref = useRef(null)
   useEffect(() => { ref.current?.focus() }, [])
@@ -514,8 +393,8 @@ function StepNome({ onNext, onBack }) {
   return (
     <div className="step-wrap">
       <div className="q-body">
-        <div className="q-num">01 / 07</div>
-        <div className="q-title">Qual seu <strong>nome</strong> e sobrenome? <span className="q-req">*</span></div>
+        <div className="q-num">01 / 05</div>
+        <div className="q-title">Qual o seu <strong>nome</strong>? <span className="q-req">*</span></div>
         <input
           ref={ref}
           className={`inp-line${showError ? ' error' : ''}`}
@@ -529,9 +408,8 @@ function StepNome({ onNext, onBack }) {
         <div className="err-msg">{showError ? 'Digite seu nome e sobrenome (apenas letras)' : ''}</div>
       </div>
       <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(val.trim())}>
-          OK ✓
+          OK
         </button>
       </div>
       <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
@@ -539,8 +417,8 @@ function StepNome({ onNext, onBack }) {
   )
 }
 
-// ── Etapa 02 — WhatsApp ───────────────────────────────────────────────────────
-function StepZap({ nome, onNext, onBack }) {
+// ─── STEP 02 — Telefone ───────────────────────────────────────────────────────
+function StepTelefone({ onNext, onBack }) {
   const [val, setVal] = useState('')
   const ref = useRef(null)
   useEffect(() => { ref.current?.focus() }, [])
@@ -553,7 +431,7 @@ function StepZap({ nome, onNext, onBack }) {
   }
 
   const digits = val.replace(/\D/g, '')
-  const isValid = digits.length >= 10 && digits.length <= 11
+  const isValid = digits.length >= 10
   const showError = digits.length > 3 && !isValid
 
   function handleKey(e) { if (e.key === 'Enter' && isValid) onNext(val) }
@@ -561,8 +439,8 @@ function StepZap({ nome, onNext, onBack }) {
   return (
     <div className="step-wrap">
       <div className="q-body">
-        <div className="q-num">02 / 07</div>
-        <div className="q-title">Qual seu número de <strong>WhatsApp</strong>? <span className="q-req">*</span></div>
+        <div className="q-num">02 / 05</div>
+        <div className="q-title">Qual seu <strong>telefone</strong>? <span className="q-req">*</span></div>
         <div className={`zap-row${showError ? ' error' : ''}`}>
           <span style={{ fontSize: 20 }}>🇧🇷</span>
           <span className="zap-prefix">+55</span>
@@ -580,7 +458,7 @@ function StepZap({ nome, onNext, onBack }) {
       <div className="cont-wrap">
         <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(val)}>
-          OK ✓
+          OK
         </button>
       </div>
       <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
@@ -588,38 +466,37 @@ function StepZap({ nome, onNext, onBack }) {
   )
 }
 
-// ── Etapa 03 — Instagram ──────────────────────────────────────────────────────
-function StepInsta({ onNext, onBack }) {
+// ─── STEP 03 — Instagram ──────────────────────────────────────────────────────
+function StepInstagram({ onNext, onBack }) {
   const [val, setVal] = useState('')
   const ref = useRef(null)
   useEffect(() => { ref.current?.focus() }, [])
 
   const clean = val.trim().replace(/^@/, '')
   const isValid = clean.length >= 2
-  const showError = val.length > 0 && !isValid
 
   function handleKey(e) { if (e.key === 'Enter' && isValid) onNext(clean) }
 
   return (
     <div className="step-wrap">
       <div className="q-body">
-        <div className="q-num">03 / 07</div>
-        <div className="q-title">Qual o <strong>@</strong> do Instagram da sua empresa? <span className="q-req">*</span></div>
+        <div className="q-num">03 / 05</div>
+        <div className="q-title">Qual o seu <strong>Instagram</strong>? <span className="q-req">*</span></div>
         <input
           ref={ref}
-          className={`inp-line${showError ? ' error' : ''}`}
+          className="inp-line"
           type="text"
-          placeholder="Digite sua resposta aqui..."
+          placeholder="@seuinstagram"
           value={val}
           onChange={e => setVal(e.target.value)}
           onKeyDown={handleKey}
         />
-        <div className="err-msg">{showError ? 'Preencha o @ do Instagram' : ''}</div>
+        <div className="err-msg" />
       </div>
       <div className="cont-wrap">
         <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!isValid} onClick={() => onNext(clean)}>
-          OK ✓
+          OK
         </button>
       </div>
       <div className="enter-hint">pressione <kbd>Enter ↵</kbd></div>
@@ -627,73 +504,25 @@ function StepInsta({ onNext, onBack }) {
   )
 }
 
-// ── Etapa 04 — Perda iFood ────────────────────────────────────────────────────
-const PERDA_IFOOD_OPTS = [
-  { label: 'Não trabalho com iFood' },
-  { label: 'Até R$1.000 por semana' },
-  { label: 'Entre R$1.000 e R$2.500 por semana' },
-  { label: 'Entre R$2.500 e R$5.000 por semana' },
-  { label: 'Perco mais de R$5.000 por semana' },
-]
-
-function StepPerdaIfood({ onNext, onBack }) {
-  const [sel, setSel] = useState(null)
-  function choose(opt) { setSel(opt); track('option_selected', { question: 'perda_ifood', label: opt.label }) }
-  return (
-    <div className="step-wrap">
-      <div className="q-body">
-        <div className="q-num">04 / 07</div>
-        <div className="q-title">
-          Toda semana o iFood fica com uma parte do seu lucro. Quanto você acha que está <strong>perdendo</strong>? <span className="q-req">*</span>
-        </div>
-        <div className="opts">
-          {PERDA_IFOOD_OPTS.map((opt, i) => (
-            <div
-              key={i}
-              className={`opt${sel?.label === opt.label ? ' sel' : ''}`}
-              onClick={() => choose(opt)}
-            >
-              <div className="opt-letter">{String.fromCharCode(65 + i)}</div>
-              <div className="opt-text">{opt.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>‹</button>
-        <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
-          OK ✓
-        </button>
-      </div>
-    </div>
-  )
-}
-
-// ── Etapa 05 — Faturamento ────────────────────────────────────────────────────
+// ─── STEP 04 — Faturamento ────────────────────────────────────────────────────
 const FAT_OPTS = [
-  { label: 'Menos de R$20.000' },
-  { label: 'Entre R$20.000 a R$70.000' },
-  { label: 'Entre R$70.000 a R$150.000' },
-  { label: 'Acima de R$150.000' },
+  { v: 'ate30k',       label: 'Até 30 mil reais',           disqualify: true },
+  { v: '30k-70k',      label: 'Entre 30 mil a 70 mil',      disqualify: false },
+  { v: '70k-150k',     label: 'Entre 70 mil a 150 mil',     disqualify: false },
+  { v: '150k-300k',    label: 'Entre 150 mil a 300 mil',    disqualify: false },
+  { v: 'acima300k',    label: 'Acima de 300 mil',           disqualify: false },
 ]
 
 function StepFaturamento({ onNext, onBack }) {
   const [sel, setSel] = useState(null)
-  function choose(opt) { setSel(opt); track('option_selected', { question: 'faturamento', label: opt.label }) }
   return (
     <div className="step-wrap">
       <div className="q-body">
-        <div className="q-num">05 / 07</div>
-        <div className="q-title">
-          Para entendermos o potencial do seu delivery, qual é o <strong>faturamento mensal atual</strong>? (delivery + loja física) <span className="q-req">*</span>
-        </div>
+        <div className="q-num">04 / 05</div>
+        <div className="q-title">Qual o <strong>faturamento médio mensal</strong> da sua empresa? <span className="q-req">*</span></div>
         <div className="opts">
           {FAT_OPTS.map((opt, i) => (
-            <div
-              key={i}
-              className={`opt${sel?.label === opt.label ? ' sel' : ''}`}
-              onClick={() => choose(opt)}
-            >
+            <div key={i} className={`opt${sel?.v === opt.v ? ' sel' : ''}`} onClick={() => setSel(opt)}>
               <div className="opt-letter">{String.fromCharCode(65 + i)}</div>
               <div className="opt-text">{opt.label}</div>
             </div>
@@ -703,36 +532,31 @@ function StepFaturamento({ onNext, onBack }) {
       <div className="cont-wrap">
         <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
-          OK ✓
+          OK
         </button>
       </div>
     </div>
   )
 }
 
-// ── Etapa 06 — Investimento ───────────────────────────────────────────────────
+// ─── STEP 05 — Investimento ───────────────────────────────────────────────────
 const INV_OPTS = [
-  { v: 'ok',  label: '✅ Sim, quero mais pedidos com mais lucro' },
-  { v: 'nok', label: '❌ Não quero investir no meu negócio' },
+  { v: 'ok',  label: '✅ Sim! Preciso de tráfego profissional', disqualify: false },
+  { v: 'nok', label: '❌ Não quero investir no meu negócio',    disqualify: true  },
 ]
 
 function StepInvestimento({ onNext, onBack }) {
   const [sel, setSel] = useState(null)
-  function choose(opt) { setSel(opt); track('option_selected', { question: 'investimento', value: opt.v, label: opt.label }) }
   return (
     <div className="step-wrap">
       <div className="q-body">
-        <div className="q-num">06 / 07</div>
+        <div className="q-num">05 / 05</div>
         <div className="q-title">
-          Para ter volume de pedidos no seu próprio cardápio e parar de dividir o lucro com o iFood, é necessário investir no mínimo <strong>R$1.500/mês</strong> em anúncios. Está disposto a fazer esse investimento? <span className="q-req">*</span>
+          Nossa Assessoria se inicia em <strong>R$1.500,00/mês</strong>. Está disposto a investir esse valor e elevar seu negócio a um novo patamar? <span className="q-req">*</span>
         </div>
         <div className="opts">
           {INV_OPTS.map((opt, i) => (
-            <div
-              key={i}
-              className={`opt${sel?.label === opt.label ? ' sel' : ''}`}
-              onClick={() => choose(opt)}
-            >
+            <div key={i} className={`opt${sel?.v === opt.v ? ' sel' : ''}`} onClick={() => setSel(opt)}>
               <div className="opt-letter">{String.fromCharCode(65 + i)}</div>
               <div className="opt-text">{opt.label}</div>
             </div>
@@ -742,60 +566,21 @@ function StepInvestimento({ onNext, onBack }) {
       <div className="cont-wrap">
         <button className="back-btn" onClick={onBack}>‹</button>
         <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
-          OK ✓
+          ENVIAR
         </button>
       </div>
     </div>
   )
 }
 
-// ── Etapa 07 — Tomadores de decisão ──────────────────────────────────────────
-const DECISAO_OPTS = [
-  { label: 'Sim. Estaremos juntos na reunião.' },
-  { label: 'Não, só eu tomo as decisões e me comprometo a participar no horário combinado.' },
-]
-
-function StepDecisores({ onNext, onBack }) {
-  const [sel, setSel] = useState(null)
-  function choose(opt) { setSel(opt); track('option_selected', { question: 'decisores', label: opt.label }) }
-  return (
-    <div className="step-wrap">
-      <div className="q-body">
-        <div className="q-num">07 / 07</div>
-        <div className="q-title">
-          Caso seu formulário seja aprovado para uma Consultoria Estratégica, é obrigatória a presença de todos os tomadores de decisão na reunião. Tem mais alguém que te ajuda nas <strong>tomadas de decisões</strong> do seu negócio? <span className="q-req">*</span>
-        </div>
-        <div className="opts">
-          {DECISAO_OPTS.map((opt, i) => (
-            <div
-              key={i}
-              className={`opt${sel?.label === opt.label ? ' sel' : ''}`}
-              onClick={() => choose(opt)}
-            >
-              <div className="opt-letter">{String.fromCharCode(65 + i)}</div>
-              <div className="opt-text">{opt.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="cont-wrap">
-        <button className="back-btn" onClick={onBack}>‹</button>
-        <button className="cont-btn" disabled={!sel} onClick={() => onNext(sel)}>
-          ENVIAR ✓
-        </button>
-      </div>
-    </div>
-  )
-}
-
-// ── Tela Sucesso ──────────────────────────────────────────────────────────────
+// ─── TELA SUCESSO ─────────────────────────────────────────────────────────────
 function TelaSucesso({ onAgendar }) {
   return (
     <div className="sucesso">
-      <div className="sucesso-icon">🚀</div>
-      <h1 className="sucesso-h1">Seu delivery tem tudo para escalar!</h1>
+      <div className="sucesso-icon">✅</div>
+      <h1 className="sucesso-h1">Perfeito, sua empresa está no perfil certo!</h1>
       <p className="sucesso-p">
-        Analisamos suas respostas e seu negócio está pronto para ter uma fila de pedidos no seu próprio cardápio. Para não perdermos tempo com trocas de mensagens, selecione agora o melhor horário para sua Reunião Estratégica clicando no link abaixo.
+        Analisamos suas respostas e o seu negócio tem exatamente o perfil que atendemos. Para não perdermos tempo com trocas de mensagens, selecione agora o melhor horário para nossa Reunião Estratégica clicando no link abaixo.
       </p>
       <a
         className="calendly-btn"
@@ -804,188 +589,156 @@ function TelaSucesso({ onAgendar }) {
         rel="noopener noreferrer"
         onClick={onAgendar}
       >
-        📆 AGENDAR REUNIÃO →
+        🗓 AGENDAR REUNIÃO →
       </a>
     </div>
   )
 }
 
-// ── Tela Monok (desqualificado) ───────────────────────────────────────────────
-function TelaMonok({ nome }) {
+// ─── TELA MONOK ───────────────────────────────────────────────────────────────
+function TelaMonok() {
   return (
     <div className="monok">
       <div className="monok-icon">🙏</div>
-      <h2 className="monok-h2">Obrigado pelo interesse!</h2>
+      <h2 className="monok-h2">Agradecemos seu interesse!</h2>
       <p className="monok-p">
-        No momento, nosso programa é voltado para empreendedores dispostos a investir no próprio negócio. Quando estiver pronto para dar esse passo, estaremos aqui.
+        Por enquanto, nossa assessoria é voltada para empresas dispostas a investir no crescimento do negócio. No momento, não conseguiríamos te entregar o resultado que você merece.
+        <br /><br />
+        Mas convido você a acompanhar nossos conteúdos exclusivos no Instagram! 👇
       </p>
+      <a
+        className="insta-btn"
+        href={CONFIG.linkInstagram}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        📱 Acessar Instagram →
+      </a>
     </div>
   )
 }
 
-// ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
-export default function FormularioDelivery() {
-  const [step, setStep] = useState('capa')
+// ─── MAIN ─────────────────────────────────────────────────────────────────────
+export default function Formulario() {
+  const [step, setStep] = useState('q1')
   const [formState, setFormState] = useState({
-    nome: '', zap: '', ig: '',
-    perdaIfoodLabel: '',
-    faturamentoLabel: '',
-    investimentoLabel: '',
-    investimentoV: '',
-    decisoresLabel: '',
+    nome: '', telefone: '', ig: '',
+    faturamentoLabel: '', faturamentoV: '', faturamentoDisqualify: false,
+    investimentoLabel: '', investimentoV: '', investimentoDisqualify: false,
     ...getUTMs(),
   })
 
   const prog = PROG[step] || 0
 
-  // Captura UTMs no mount e dispara form_view
   useEffect(() => {
-    const utms = getUTMs()
-    setFormState(s => ({ ...s, ...utms }))
-    track('form_view', utms)
+    track('form_view', getUTMs())
+    const payload = { event: 'form_start', ...getUTMs() }
+    sendWebhook(payload)
   }, [])
 
-  function goTo(nextStep) {
-    setStep(nextStep)
+  function goTo(next) {
+    setStep(next)
     if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  // ── Handlers ─────────────────────────────────────────────────────────────
-
-  function handleCapa() {
-    // DISPARO 1: formulário iniciado
-    const payload = {
-      event: 'form_start',
-      ...getUTMs(),
-    }
-    track('form_start', payload)
-    sendWebhook(payload)
-    goTo('q1')
   }
 
   function handleNome(nome) {
     setFormState(s => ({ ...s, nome }))
-    track('step_complete', { step: 'q1', nome })
     goTo('q2')
   }
 
-  function handleZap(zap) {
-    setFormState(s => ({ ...s, zap }))
-    track('step_complete', { step: 'q2', nome: formState.nome })
+  function handleTelefone(telefone) {
+    setFormState(s => ({ ...s, telefone }))
     goTo('q3')
   }
 
-  function handleInsta(ig) {
+  function handleInstagram(ig) {
     setFormState(s => ({ ...s, ig }))
-    track('step_complete', { step: 'q3', nome: formState.nome, ig })
     goTo('q4')
   }
 
-  function handlePerdaIfood(opt) {
-    setFormState(s => ({ ...s, perdaIfoodLabel: opt.label }))
-    track('step_complete', { step: 'q4', perda_ifood: opt.label })
+  function handleFaturamento(opt) {
+    setFormState(s => ({ ...s, faturamentoLabel: opt.label, faturamentoV: opt.v, faturamentoDisqualify: opt.disqualify }))
     goTo('q5')
   }
 
-  function handleFaturamento(opt) {
-    setFormState(s => ({ ...s, faturamentoLabel: opt.label }))
-    track('step_complete', { step: 'q5', faturamento: opt.label })
-    goTo('q6')
-  }
-
   function handleInvestimento(opt) {
-    setFormState(s => ({ ...s, investimentoLabel: opt.label, investimentoV: opt.v }))
-    track('step_complete', { step: 'q6', investimento: opt.label, qualification: opt.v })
-    goTo('q7')
-  }
-
-  function handleDecisores(opt) {
-    const newState = { ...formState, decisoresLabel: opt.label }
-    setFormState(newState)
-    track('step_complete', { step: 'q7', decisores: opt.label })
-
-    if (newState.investimentoV === 'nok') {
-      // DISPARO 2: lead desqualificado
-      const { fbc, fbp } = getMetaCookies()
-      const payload = {
-        event: 'form_disqualified',
-        reason: 'investimento',
-        nome: newState.nome,
-        zap: normalizeZap(newState.zap),
-        ig: newState.ig,
-        trafego: newState.perdaIfoodLabel,      // mapeia para campo "trafego" esperado pelo n8n
-        faturamento: newState.faturamentoLabel,
-        investimento: newState.investimentoLabel,
-        decisores: opt.label,
-        fbc, fbp,
-        utmSource:   newState.utmSource   || '',
-        utmMedium:   newState.utmMedium   || '',
-        utmCampaign: newState.utmCampaign || '',
-        utmContent:  newState.utmContent  || '',
-        utmTerm:     newState.utmTerm     || '',
-      }
-      track('lead_desqualificado', payload)
-      sendWebhook(payload)
-      goTo('monok')
-    } else {
-      goTo('sucesso')
+    const newState = {
+      ...formState,
+      investimentoLabel: opt.label,
+      investimentoV: opt.v,
+      investimentoDisqualify: opt.disqualify,
     }
+    setFormState(newState)
+
+    const isDisqualified = newState.faturamentoDisqualify || opt.disqualify
+    const { fbc, fbp } = getMetaCookies()
+
+    const payload = {
+      event: isDisqualified ? 'form_disqualified' : 'form_qualified',
+      nome: newState.nome,
+      zap: normalizeZap(newState.telefone),
+      ig: newState.ig,
+      faturamento: newState.faturamentoLabel,
+      investimento: opt.label,
+      fbc, fbp,
+      utmSource:   newState.utmSource   || '',
+      utmMedium:   newState.utmMedium   || '',
+      utmCampaign: newState.utmCampaign || '',
+      utmContent:  newState.utmContent  || '',
+      utmTerm:     newState.utmTerm     || '',
+    }
+
+    track(isDisqualified ? 'lead_desqualificado' : 'lead_qualificado', payload)
+    if (isDisqualified) sendWebhook(payload)
+
+    goTo(isDisqualified ? 'monok' : 'sucesso')
   }
 
   function handleAgendar() {
-    // DISPARO 3: lead qualificado clicou em agendar
     const { fbc, fbp } = getMetaCookies()
-    const event_id = generateEventId()
     const payload = {
       event: 'schedule_booked',
       nome: formState.nome,
-      zap: normalizeZap(formState.zap),
+      zap: normalizeZap(formState.telefone),
       ig: formState.ig,
-      trafego: formState.perdaIfoodLabel,       // mapeia para campo "trafego" esperado pelo n8n
       faturamento: formState.faturamentoLabel,
       investimento: formState.investimentoLabel,
-      decisores: formState.decisoresLabel,
+      event_id: generateEventId(),
       fbc, fbp,
-      event_id,
       utmSource:   formState.utmSource   || '',
       utmMedium:   formState.utmMedium   || '',
       utmCampaign: formState.utmCampaign || '',
       utmContent:  formState.utmContent  || '',
       utmTerm:     formState.utmTerm     || '',
     }
-    track('lead_qualificado_agendou', payload)
+    track('lead_agendou', payload)
     sendWebhook(payload)
   }
-
-  // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <>
       <Head>
-        <title>Aumente seus pedidos — Delivery</title>
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <meta name="description" content="Aumente seus pedidos em 50% com tráfego pago para delivery." />
+        <title>Formulário — Disciplin's Marketing</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <style dangerouslySetInnerHTML={{ __html: css }} />
       </Head>
 
-      <ProgressBar pct={prog} />
+      <div className="prog-bar">
+        <div className="prog-fill" style={{ width: `${prog}%` }} />
+      </div>
 
       <div className="wrap">
-        <Header />
+        <div className="hdr" />
 
-        {step === 'capa'    && <Capa onNext={handleCapa} />}
-        {step === 'q1'      && <StepNome onNext={handleNome} onBack={() => goTo('capa')} />}
-        {step === 'q2'      && <StepZap nome={formState.nome} onNext={handleZap} onBack={() => goTo('q1')} />}
-        {step === 'q3'      && <StepInsta onNext={handleInsta} onBack={() => goTo('q2')} />}
-        {step === 'q4'      && <StepPerdaIfood onNext={handlePerdaIfood} onBack={() => goTo('q3')} />}
-        {step === 'q5'      && <StepFaturamento onNext={handleFaturamento} onBack={() => goTo('q4')} />}
-        {step === 'q6'      && <StepInvestimento onNext={handleInvestimento} onBack={() => goTo('q5')} />}
-        {step === 'q7'      && <StepDecisores onNext={handleDecisores} onBack={() => goTo('q6')} />}
+        {step === 'q1' && <StepNome onNext={handleNome} />}
+        {step === 'q2' && <StepTelefone onNext={handleTelefone} onBack={() => goTo('q1')} />}
+        {step === 'q3' && <StepInstagram onNext={handleInstagram} onBack={() => goTo('q2')} />}
+        {step === 'q4' && <StepFaturamento onNext={handleFaturamento} onBack={() => goTo('q3')} />}
+        {step === 'q5' && <StepInvestimento onNext={handleInvestimento} onBack={() => goTo('q4')} />}
         {step === 'sucesso' && <TelaSucesso onAgendar={handleAgendar} />}
-        {step === 'monok'   && <TelaMonok nome={formState.nome} />}
+        {step === 'monok' && <TelaMonok />}
       </div>
     </>
   )
